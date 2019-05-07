@@ -1,0 +1,50 @@
+.nomargin-image {
+	overflow: visible !important;
+}
+
+.text-black {
+	color: #000;
+}
+
+.text-blue {
+	color: #00c7ff;
+}
+
+.profile-image-header {
+	border-radius: 100px;
+	width: 200px;
+	height: 200px;
+	margin-top: -250px;
+}
+
+@media screen and (max-width: 768px) {
+  .profile-image-header {
+    margin-top: -40px;
+    margin-bottom: 20px;
+  }
+}
+
+.wordwrap {
+	word-wrap: break-word
+}
+
+.btn-cadastro {
+	margin-top: 3vh;
+}
+
+.is-invalid {
+	border-color: #a94442;
+}
+
+.rounded-circle {
+	border-radius: 100px;
+}
+
+.img-clicavel:hover{
+	filter: brightness(.6);
+	transition: 0.5s;
+}
+
+.mb-1 {
+	margin-bottom: 20px;
+}

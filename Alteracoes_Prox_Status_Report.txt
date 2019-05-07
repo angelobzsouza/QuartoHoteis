@@ -1,0 +1,6 @@
+- Novo Campo Descricao do Hotel
+- Foto de Capa do Hotel
+- Alteração na EAP
+- Novo Campo Telefone do Hotel
+- Novo Campo Descricao Quarto
+- Exibição dos últimos quartos cadastrados
