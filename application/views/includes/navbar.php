@@ -9,8 +9,8 @@
 				<!-- Navbar deslogada -->
 				<?php if(!$this->session->login) { ?>
 					<ul>
-						<!-- <li><a href="<?= base_url() ?>">Home</a></li> -->
-						<!-- <li><a href="<?= base_url('quartos') ?>">Quartos</a></li> -->
+						<li><a href="<?= base_url() ?>">Home</a></li>
+						<li><a href="<?= base_url('quartos') ?>">Quartos</a></li>
 						<li><a href="<?= base_url('entrar') ?>">Login</a></li>
 						<li class="btn-cta"><a href="<?= base_url('cadastrar') ?>"><span>Sou Hotel</span></a></li>
 					</ul>

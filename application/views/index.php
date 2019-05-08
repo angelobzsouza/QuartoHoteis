@@ -22,8 +22,8 @@
 											<form action="<?= base_url('filtra-quartos') ?>" method="post">
 												<div class="row form-group">
 													<div class="col-md-12">
-														<label for="tipo_vaga">Tipo de Quarto</label>
-														<select name="tipo_vaga" id="tipo_vaga" class="form-control">
+														<label for="tipo_quarto">Tipo de Quarto</label>
+														<select name="tipo_quarto" id="tipo_quarto" class="form-control">
 															<option value="" class="text-black">Tipo</option>
 															<option value="0" class="text-black">Standard</option>
 															<option value="1" class="text-black">Superior</option>
@@ -52,7 +52,7 @@
 												</div>
 												<div class="row form-group">
 													<div class="col-md-12">
-														<input type="submit" name="submit" id="submit" class="btn btn-primary btn-block" value="Procurar" disabled>
+														<input type="submit" name="submit" id="submit" class="btn btn-primary btn-block" value="Procurar">
 													</div>
 												</div>
 											</form>	

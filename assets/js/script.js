@@ -44,8 +44,8 @@ $("#form_cadastro").submit(function (e) {
     if (existe == 1) {
       $("#label_email").text("Este email já está cadastrado");
       $("#label_email").addClass("text-danger");
-      $("#user").addClass("is-invalid");
-      $("#user").val("");
+      $("#email").addClass("is-invalid");
+      $("#email").val("");
       erro = 1;
     }
   });

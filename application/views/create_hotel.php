@@ -38,7 +38,7 @@
 
 							<div class="form-row">
 								<div class="col-md-12">
-									<label for="user" id="label_user">Email do Responsável<span style="color: red;">*</span></label>
+									<label for="email" id="label_email">Email do Responsável<span style="color: red;">*</span></label>
 									<input type="text" name="email" id="email" class="form-control" placeholder="Ex: exemplo@exemplo.com.br" maxlength="20" required>
 								</div>
 							</div>

@@ -8,10 +8,115 @@ function __construct() {
 	$this->load->model("Quarto_model", "quarto");
 }
 
-public function index() {
+public function index($pagina = NULL) {
+		// Limpa os filtros da sessão
+		$filtros['Estrelas'] = $this->session->EstrelasHotel = '';
+		$filtros['TipoQuarto'] = $this->session->TipoQuarto = '-1';
+		$filtros['IDEstado'] = $this->session->IDEstado = "";
+		$filtros['IDCidade'] = $this->session->IDCidade = "";
+		$filtros['ValorMinimo'] = $this->session->ValorMinimo = "";
+		$filtros['ValorMaximo'] = $this->session->ValorMaximo = "";
+		$filtros['BuscaTexto'] = $this->session->BuscaTexto = "";
 
+ 		$qtde_quartos = $this->quarto->countQuartos();
+
+ 		$this->load->library('pagination');
+
+ 		$config['base_url'] = base_url('quartos/');
+		$config['total_rows'] = $qtde_quartos;
+		$config['per_page'] = 30;
+		$config['first_link'] = "&nbsp&nbspInício";
+		$config['last_link'] = "&nbsp&nbspÚltimo";
+		$config['next_link'] = "&nbsp&nbspPróximo";
+		$config['prev_link'] = "&nbsp&nbspAnterior";
+		$config['cur_tag_open'] = "&nbsp<b>";
+		$config['cur_tag_close'] = "&nbsp</b>";
+		$config['num_tag_open'] = "&nbsp";
+		$config['num_tag_close'] = "&nbsp";
+
+		$this->pagination->initialize($config);
+		
+		// Busca info no banco de acordo com a paginação
+		$data['quartos'] = $this->quarto->readQuartosByPage($pagina);
+		$this->load->model("Localizacao_model", "localizacao");
+		$data['estados'] = $this->localizacao->readStates();
+		$data['title'] = "Quartos";
+		$data['filtros'] = $filtros;
+
+		// Pega uma foto de cada quarto para ser a thumb
+		foreach($data['quartos'] as $quarto) {
+			$quarto->Thumb = $this->quarto->buscaThumbQuarto($quarto->IDQuarto);
+		}
+
+		// Chama a view
+		$this->load->view('quartos', $data);
 }
 
+// Param: Indice da paginação por get e parametros de busca por post
+// Return: Pagina de quartos com quartos encontrados
+public function filtraQuartos ($pagina = NULL) {
+	if($this->input->post('submit')) {
+		$this->session->EstrelasHotel = $this->input->post('estrelas_hotel');
+		$this->session->TipoQuarto = $this->input->post('tipo_quarto');
+		$this->session->IDEstado = $this->input->post('estado');
+		$this->session->IDCidade = $this->input->post('cidade');
+		$this->session->ValorMinimo = $this->input->post('valor_minimo');
+		$this->session->ValorMaximo = $this->input->post('valor_maximo');
+		$this->session->BuscaTexto = $this->input->post('busca_texto');
+	}
+
+	$filtros['Estrelas'] = $this->session->EstrelasHotel;
+	$filtros['TipoQuarto'] = $this->session->TipoQuarto;
+	$filtros['IDEstado'] = $this->session->IDEstado;
+	$filtros['IDCidade'] = $this->session->IDCidade;
+	$filtros['ValorMinimo'] = $this->session->ValorMinimo;
+	$filtros['ValorMaximo'] = $this->session->ValorMaximo;
+	$filtros['BuscaTexto'] = $this->session->BuscaTexto;
+
+	// Validação de formulário
+	foreach($filtros as $key => $filtro) {
+		if ($filtro != "" && !is_numeric($filtro) && $key != 'BuscaTexto') {
+			$this->load->view('errors/VagaReps_errors/error_general');
+			return false;
+		}
+	}
+
+	$qtde_quartos = $this->quarto->contaQuartosComFiltros($filtros);
+
+	$this->load->library('pagination');
+
+	$config['base_url'] = base_url('filtra-quartos/');
+	$config['total_rows'] = $qtde_quartos;
+	$config['per_page'] = 30;
+	$config['first_link'] = "&nbsp&nbspInício";
+	$config['last_link'] = "&nbsp&nbspÚltimo";
+	$config['next_link'] = "&nbsp&nbspPróximo";
+	$config['prev_link'] = "&nbsp&nbspAnterior";
+	$config['cur_tag_open'] = "&nbsp<b>";
+	$config['cur_tag_close'] = "&nbsp</b>";
+	$config['num_tag_open'] = "&nbsp";
+	$config['num_tag_close'] = "&nbsp";
+
+	$this->pagination->initialize($config);
+	
+	// Busca info no banco de acordo com a paginação
+	$data['quartos'] = $this->quarto->readQuartosByPageFilter($pagina, $filtros);
+	$data['filtros'] = $filtros;
+	$this->load->model("Localizacao_model", "localizacao");
+	$data['estados'] = $this->localizacao->readStates();
+	if ($filtros['IDEstado'] != "") {
+		$data['cidades'] = $this->localizacao->readCitiesByState($filtros['IDEstado']);
+	}
+	$data['title'] = "Quartos";
+
+	// Pega uma foto de cada vaga para ser a thumb
+	foreach($data['quartos'] as $quarto) {
+		$quarto->Thumb = $this->quarto->buscaThumbQuarto($quarto->IDQuarto);
+	}
+
+	// Chama a view
+	$this->load->view('quartos', $data);
+}
 
 // Retorno: View do quarto
 public function quarto ($quarto_id = NULL) {

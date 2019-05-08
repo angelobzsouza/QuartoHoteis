@@ -48,3 +48,7 @@
 .mb-1 {
 	margin-bottom: 20px;
 }
+
+.bg-white {
+	background: white !important;
+}

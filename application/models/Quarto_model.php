@@ -15,6 +15,93 @@ public function countQuartos () {
 	return $this->db->count_all('Quartos');
 }
 
+// Param: Filters array
+// Return: int "Quartos" number
+public function contaQuartosComFiltros ($filtros = NULL) {
+	$query = "SELECT count(IDQuarto) AS qtde_quartos FROM Quartos JOIN Hoteis ON Hoteis.IDHotel = Quartos.IDHotel";
+
+	//Se tiver algum filtro, adiciona clausula WHERE 
+	foreach($filtros as $filtro => $valor) {
+		if($valor != NULL && $valor != "") {
+			$query .= " WHERE ";
+			break;
+		}
+	}
+	// Adiciona cada um dos filtros exceto preco
+	foreach($filtros as $filtro => $valor) {
+		if($valor != "" && $filtro != "ValorMinimo" && $filtro != "ValorMaximo" && $filtro != "BuscaTexto") {
+			$query .=  $filtro." = ".$valor." AND ";
+		}
+	}
+	// Como a condição de filtro de preço é diferente, ela é adicionada a parte
+	if ($filtros['ValorMinimo'] != "") {
+		$query .=  "Preco >= ".$filtros['ValorMinimo']." AND ";
+	}
+	if ($filtros['ValorMaximo'] != "") {
+		$query .=  "Preco <= ".$filtros['ValorMaximo']." AND ";
+	}
+	// Como a condição de texto também é diferente, adiciona a parte
+	if ($filtros['BuscaTexto'] != "") {
+		$query .=  "Hoteis.NomeHotel LIKE '%".$filtros['BuscaTexto']."%' OR Quartos.TituloQuarto LIKE '%".$filtros['BuscaTexto']."%' AND ";
+	}
+	// Se tiver algum filtro, remove o "AND" que é adicionado a mais no fim da String
+	foreach($filtros as $filtro => $valor) {
+		if($valor != NULL && $valor != "") {
+			$query =  substr($query, 0, -5);
+			break;
+		}
+	}	
+	return $this->db->query($query)->row()->qtde_quartos;
+}
+
+// Busca os quartos da pagina 
+public function readQuartosByPageFilter ($offset = NULL, $filtros = NULL) {
+	$query = "SELECT * FROM Quartos JOIN Hoteis ON Hoteis.IDHotel = Quartos.IDHotel";
+
+	//Se tiver algum filtro, adiciona clausula WHERE 
+	foreach($filtros as $filtro => $valor) {
+		if($valor != NULL && $valor != "") {
+			$query .= " WHERE ";
+			break;
+		}
+	}
+	// Adiciona cada um dos filtros exceto preco
+	foreach($filtros as $filtro => $valor) {
+		if($valor != "" && $filtro != "ValorMinimo" && $filtro != "ValorMaximo" && $filtro != "BuscaTexto") {
+			$query .=  $filtro." = ".$valor." AND ";
+		}
+	}
+	// Como a condição de filtro de preço é diferente, ela é adicionada a parte
+	if ($filtros['ValorMinimo'] != "") {
+		$query .=  "Preco >= ".$filtros['ValorMinimo']." AND ";
+	}
+	if ($filtros['ValorMaximo'] != "") {
+		$query .=  "Preco <= ".$filtros['ValorMaximo']." AND ";
+	}
+	// Como a condição de texto também é diferente, adiciona a parte
+	if ($filtros['BuscaTexto'] != "") {
+		$query .=  "Hoteis.NomeHotel LIKE '%".$filtros['BuscaTexto']."%' OR Quartos.TituloQuarto LIKE '%".$filtros['BuscaTexto']."%' AND ";
+	}
+	// Se tiver algum filtro, remove o "AND" que é adicionado a mais no fim da String
+	foreach($filtros as $filtro => $valor) {
+		if($valor != NULL && $valor != "") {
+			$query =  substr($query, 0, -5);
+			break;
+		}
+	}	
+	$query .= " LIMIT 30";
+	if(!empty($offset)) {
+	 $query .= " OFFSET ".$offset;
+	}
+	return $this->db->query($query)->result();
+}
+
+// Busca os quartos da pagina 
+public function readQuartosByPage ($offset = NULL) {
+	$this->db->limit(30, $offset)->order_by("IDQuarto", "ASC");
+	return $this->db->get('Quartos')->result();
+}
+
 // Param: Quarto ID
 // Return: An object
 public function read ($quarto_id = NULL) {
