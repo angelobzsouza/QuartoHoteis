@@ -59,6 +59,7 @@ $route['sair'] = "Credenciais/logout";
 
 // Routes para buscar hoteis
 $route['hotel/(:any)'] = "Hoteis/hotel/$1";
+$route['dashboard/(:any)'] = "Hoteis/dashboard/$1";
 
 // Routes de cadastro de hoteis
 $route['cadastrar'] = "Hoteis/createView";
@@ -78,7 +79,7 @@ $route['excluir-quarto/(:num)'] = "Quartos/delete/$1";
 
 // Routes para buscar quartos/quarto
 $route['quartos'] = "Quartos";
-$route['quartos/(:num)'] = "Quatos/index/$1";
+$route['quartos/(:num)'] = "Quartos/index/$1";
 $route['filtra-quartos'] = "Quartos/filtraQuartos";
 $route['filtra-quartos/(:num)'] = "Quartos/filtraQuartos/$1";
 $route['quarto/(:num)'] = "Quartos/quarto/$1";

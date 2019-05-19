@@ -29,6 +29,8 @@
         <!-- Owl Carousel  -->
         <link rel="stylesheet" href="<?= base_url('assets/template/css/owl.carousel.min.css') ?>">
         <link rel="stylesheet" href="<?= base_url('assets/template/css/owl.theme.default.min.css') ?>">
+        <!-- Chart Js -->
+        <link rel="stylesheet" href="<?= base_url('assets/chart.js/chart.js/dist/Chart.min.css') ?>">
         <!-- Theme style  -->
         <link rel="stylesheet" href="<?= base_url('assets/template/css/style.css') ?>">
         <!-- Style VaraReps  -->

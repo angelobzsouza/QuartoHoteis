@@ -12,6 +12,24 @@ public function index() {
 	redirect(base_url());
 }
 
+// Abre a deashboard de um hotel
+public function dashboard ($hotel_id = NULL) {	
+	// Verifica se o hotel é o mesmo que fez o login
+	if ($hotel_id != $this->session->hotel_id) {
+		$this->load->view('errors/QuartoHoteis_errors/error_general');
+		return false;
+	}
+	// Infos báicas sobre a tela
+	$data['title'] = 'Dashboard';
+
+	// Busca informações
+	$data['hotel'] = $this->hotel->read($hotel_id);
+	$data['reservas'] = $this->hotel->readReservasMes($hotel_id);
+
+	// Abre a view
+	$this->load->view('hotel_dashboard', $data);
+}
+
 // Retorno: Tela de perfil do hotel
 public function hotel ($hotel_id = NULL) {
 	$this->load->model("Localizacao_model", "localizacao");

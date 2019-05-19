@@ -9,6 +9,27 @@ class Hotel_model extends CI_Model {
 		return $this->db->where('IDHotel', $hotel_id)->get('Hoteis')->row();
 	}
 
+	// Param: Hotel ID
+	// Return: Array with last 12 months and bookings
+	public function readReservasMes ($hotel_id = NULL) {
+		$year = date('Y');
+		$month = date('m');
+		for ($i = 0; $i < 12; $i++) {
+			if ($month - $i == 0) {
+				$year--;
+				$month = 12 + date('m');
+			}
+			$reservas[] = $this->db->query("
+				SELECT COUNT(*) AS qtde_reservas FROM Reservas 
+				JOIN Quartos ON Reservas.IDQuarto = Quartos.IDQuarto
+				JOIN Hoteis ON Quartos.IDHotel = Hoteis.IDHotel
+				WHERE Hoteis.IDHotel = ? AND MONTH(Reservas.DataInicial) = ? AND YEAR(Reservas.DataInicial) = ?
+			", [$hotel_id, $month - $i, $year])->row()->qtde_reservas;
+		}
+
+		return array_reverse($reservas);
+	}	
+
 	// Return: int numero de hoteis
 	public function countHoteis () {
 		// Conta os hoteis

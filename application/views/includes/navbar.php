@@ -28,7 +28,8 @@
 						</a>
 						<ul class="dropdown">
 							<li><a href="<?= base_url() ?>">Home</a></li>
-							<!-- <li><a href="<?= base_url('quartos') ?>">Quartos</a></li> -->
+							<li><a href="<?= base_url('quartos') ?>">Quartos</a></li>
+							<li><a href="<?= base_url('dashboard/'.$this->session->hotel_id) ?>">Dashboard</a></li>
 							<li><a href="<?= base_url('hotel/'.$this->session->hotel_id) ?>">Página do Hotel</a></li>
 							<li><a href="<?= base_url('editar-perfil/'.$this->session->hotel_id) ?>">Editar Perfil</a></li>
 							<li><a href="<?= base_url('sair') ?>">Sair</a></li>

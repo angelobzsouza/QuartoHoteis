@@ -270,13 +270,12 @@ function reserva () {
     });
 
     request.done((response) => {
-      console.log(response);
       if (response == true) {
         $("#modal_reserva").modal('hide');
         $("#modal_confirmacao").modal('show');
       }
       else {
-        alert('Algo deu errado, tente novamente');
+        alert('Este quarto não está disponível nesta data e hora, por favor, escolha outra data!');
         $("#modal_reserva").modal('hide');
       }
     });
@@ -392,6 +391,43 @@ function limpaCamposReserva () {
   $(email).next().remove();
   $(quantidade_pessoas).next().remove();
 }
+
+// GRÁFICO
+const legenda = []
+var theMonths = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+var today = new Date();
+var aMonth = today.getMonth();
+aMonth++;
+var i;
+for (i=0; i<12; i++) {  
+  legenda.push(theMonths[aMonth]);
+  aMonth++;
+  if (aMonth > 11) {
+    aMonth = 0;
+  }
+}
+var ctx = document.getElementById('reservas_mes');
+let chart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: legenda,
+    datasets: [{
+      label: 'Reservas',
+      backgroundColor: 'rgba(19, 203, 255, .2)',
+      borderColor: '#13cbff',
+      data: reservas,
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+});
 
 // EXTRAS
 function isAlphaNum(text){

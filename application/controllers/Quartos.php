@@ -315,7 +315,7 @@ public function delete ($quarto_id = NULL) {
 public function reserva () {
 	// Recebe os dados
 	$reserva['IDQuarto'] = $this->input->post('quarto_id');
-	$reserva['DataInical'] = $this->input->post('data_entrada');
+	$reserva['DataInicial'] = $this->input->post('data_entrada');
 	$reserva['HoraEntrada'] = $this->input->post('hora_entrada');
 	$reserva['DataFinal'] = $this->input->post('data_saida');
 	$reserva['HoraSaida'] = $this->input->post('hora_saida');

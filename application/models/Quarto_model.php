@@ -208,10 +208,36 @@ public function delete ($quarto_id = NULL) {
 // Param: $reserva
 // Return: Bool
 public function storeReserva ($reserva = NULL) {
-	return $this->db->query("
-		INSERT INTO Reservas (IDQuarto, DataInicial, HoraEntrada, DataFinal, HoraSaida, NomeCliente, EmailCliente, QuantidadePessoas)
-		VALUES (?, ?, TIME(?), ?, TIME(?), ?, ?, ?)
-	", $reserva);
+	// Vetor de validação
+	$validacao = [
+		$reserva['DataInicial'],
+		$reserva['DataFinal'],
+		$reserva['DataInicial'],
+		$reserva['DataFinal'],
+		$reserva['DataInicial'],
+		$reserva['DataFinal'],
+		$reserva['DataInicial'],
+		$reserva['HoraEntrada']
+	];
+
+	// Verifica se o horario está disponível
+	$horario = $this->db->query("
+		SELECT *
+		FROM Reservas
+		WHERE DataInicial BETWEEN ? AND ?
+		OR (DataFinal BETWEEN ? AND ? AND DataFinal <> ? AND DataFinal <> ?)
+		OR (DataFinal = ? AND HoraSaida >= ?)
+	", $validacao)->result();
+
+	if (empty($horario)) {
+		return $this->db->query("
+			INSERT INTO Reservas (IDQuarto, DataInicial, HoraEntrada, DataFinal, HoraSaida, NomeCliente, EmailCliente, QuantidadePessoas)
+			VALUES (?, ?, TIME(?), ?, TIME(?), ?, ?, ?)
+		", $reserva);
+	}
+	else {
+		return false;
+	}
 }
 
 }
