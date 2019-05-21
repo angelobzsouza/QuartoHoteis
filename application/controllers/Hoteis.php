@@ -30,6 +30,34 @@ public function dashboard ($hotel_id = NULL) {
 	$this->load->view('hotel_dashboard', $data);
 }
 
+// Abre o relatóroi de um hotel
+public function relatorio ($hotel_id = NULL) {	
+	// Verifica se o hotel é o mesmo que fez o login
+	if ($hotel_id != $this->session->hotel_id) {
+		$this->load->view('errors/QuartoHoteis_errors/error_general');
+		return false;
+	}
+
+	// Infos báicas sobre a tela
+	$data['title'] = 'Relatorio Completo';
+
+	// Busca informações
+	$data['hotel'] = $this->hotel->read($hotel_id);
+	$data['rendimentos_totais'] = $this->hotel->readTotalIncomes($hotel_id);
+	$data['rendimentos_quartos'] = $this->hotel->readIncomesByRoom($hotel_id);
+
+	// Le informações sobre os quartos
+	$this->load->model("Quarto_model", 'quarto');
+	$data['quartos'] = $this->quarto->readQuartosByHotel($hotel_id);
+	foreach($data['quartos'] as $quarto) {
+		$quarto->occupation = $this->quarto->readOccupationByRoom($quarto->IDQuarto);
+	}
+
+	// Abre a view
+	$this->load->view('hotel_relatorio', $data);
+}
+
+
 // Retorno: Tela de perfil do hotel
 public function hotel ($hotel_id = NULL) {
 	$this->load->model("Localizacao_model", "localizacao");

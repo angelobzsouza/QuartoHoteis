@@ -13,7 +13,7 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
-        
+
         <!-- Animate.css -->
         <link rel="stylesheet" href="<?= base_url('assets/template/css/animate.css') ?>">
         <!-- Icomoon Icon Fonts-->
@@ -31,6 +31,8 @@
         <link rel="stylesheet" href="<?= base_url('assets/template/css/owl.theme.default.min.css') ?>">
         <!-- Chart Js -->
         <link rel="stylesheet" href="<?= base_url('assets/chart.js/chart.js/dist/Chart.min.css') ?>">
+        <!-- Data Table -->
+        <link rel="stylesheet" href="<?= base_url('assets/data-table-datatables.min.css') ?>">
         <!-- Theme style  -->
         <link rel="stylesheet" href="<?= base_url('assets/template/css/style.css') ?>">
         <!-- Style VaraReps  -->

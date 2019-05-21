@@ -102,6 +102,42 @@ public function readQuartosByPage ($offset = NULL) {
 	return $this->db->get('Quartos')->result();
 }
 
+// Param: $hotel_id
+// Return: Hotel's rooms array
+public function readQuartosByHotel ($hotel_id = NULL) {
+	return $this->db->query("
+		SELECT * FROM Quartos WHERE IDHotel = ?
+	", [$hotel_id])->result();
+}
+
+// Param: Quarto ID
+// Return: Occupation in last 12 months
+public function readOccupationByRoom ($room_id = NULL) {
+	$reservations = $this->db->query("
+		SELECT * FROM Reservas WHERE IDQuarto = ? AND DataInicial >= ?
+	", [$room_id, date('Y-m-d', strtotime('-1 year'))])->result();
+
+	$reserved_days = 0;
+	$diferenca = 0;
+
+	foreach ($reservations as $reservation) {
+		$diferenca = strtotime($reservation->DataFinal) - strtotime($reservation->DataInicial);
+		$dias = floor($diferenca / (60 * 60 * 24));
+		$reserved_days += $dias;
+	}
+
+	$free_days = 365 - $reserved_days;
+	$reservation_per_cent = $reserved_days/365*100;
+
+	$occupation = (object) array(
+		'dias_reservados' => $reserved_days,
+		'dias_livres' => $free_days,
+		'porcentagem_ocupacao' => $reservation_per_cent,
+	);
+
+	return $occupation;
+}
+
 // Param: Quarto ID
 // Return: An object
 public function read ($quarto_id = NULL) {

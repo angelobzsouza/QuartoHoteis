@@ -30,6 +30,73 @@ class Hotel_model extends CI_Model {
 		return array_reverse($reservas);
 	}	
 
+	// Param: Hotel ID
+	// Return: Array with last 12 months incomes
+	public function readTotalIncomes ($hotel_id = NULL) {
+		$year = date('Y');
+		$month = date('m');
+		for ($i = 0; $i < 12; $i++) {
+			if ($month - $i == 0) {
+				$year--;
+				$month = 12 + date('m');
+			}
+			$rendimentos[] = $this->db->query("
+				SELECT SUM(Quartos.Preco) AS rendimentos FROM Reservas 
+				JOIN Quartos ON Reservas.IDQuarto = Quartos.IDQuarto
+				JOIN Hoteis ON Quartos.IDHotel = Hoteis.IDHotel
+				WHERE Hoteis.IDHotel = ? AND MONTH(Reservas.DataInicial) = ? AND YEAR(Reservas.DataInicial) = ?
+			", [$hotel_id, $month - $i, $year])->row()->rendimentos;
+		}
+
+		return array_reverse($rendimentos);
+	}
+
+	// Param: Hotel ID
+	// Return: Array with last 12 months incomes by room
+	public function readIncomesByRoom ($hotel_id = NULL) {
+		$meses = [NULL, 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+
+		$year = date('Y');
+		$month = date('m');
+		for ($i = 0; $i < 12; $i++) {
+			if ($month - $i == 0) {
+				$year--;
+				$month = 12 + date('m');
+			}
+			// Obtem as infos do objeto
+			$data = $meses[$month - $i]."/".$year;
+			$rendimentos_standard = $this->db->query("
+				SELECT SUM(Quartos.Preco) AS rendimentos FROM Reservas 
+				JOIN Quartos ON Reservas.IDQuarto = Quartos.IDQuarto
+				JOIN Hoteis ON Quartos.IDHotel = Hoteis.IDHotel
+				WHERE Hoteis.IDHotel = ? AND MONTH(Reservas.DataInicial) = ? AND YEAR(Reservas.DataInicial) = ? AND Quartos.TipoQuarto = 0
+			", [$hotel_id, $month - $i, $year])->row()->rendimentos;
+
+			$rendimentos_superior = $this->db->query("
+				SELECT SUM(Quartos.Preco) AS rendimentos FROM Reservas 
+				JOIN Quartos ON Reservas.IDQuarto = Quartos.IDQuarto
+				JOIN Hoteis ON Quartos.IDHotel = Hoteis.IDHotel
+				WHERE Hoteis.IDHotel = ? AND MONTH(Reservas.DataInicial) = ? AND YEAR(Reservas.DataInicial) = ? AND Quartos.TipoQuarto = 1
+			", [$hotel_id, $month - $i, $year])->row()->rendimentos;
+
+			$rendimentos_deluxe = $this->db->query("
+				SELECT SUM(Quartos.Preco) AS rendimentos FROM Reservas 
+				JOIN Quartos ON Reservas.IDQuarto = Quartos.IDQuarto
+				JOIN Hoteis ON Quartos.IDHotel = Hoteis.IDHotel
+				WHERE Hoteis.IDHotel = ? AND MONTH(Reservas.DataInicial) = ? AND YEAR(Reservas.DataInicial) = ? AND Quartos.TipoQuarto = 2
+			", [$hotel_id, $month - $i, $year])->row()->rendimentos;
+
+			$rendimentos[] = (object) array(
+				'data' => $data,
+				'standard' => $rendimentos_standard,
+				'superior' => $rendimentos_superior,
+				'deluxe' => $rendimentos_deluxe,
+			);
+		}
+
+		return array_reverse($rendimentos);
+	}
+
 	// Return: int numero de hoteis
 	public function countHoteis () {
 		// Conta os hoteis

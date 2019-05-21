@@ -41,13 +41,14 @@
 	<!-- Magnific Popup -->
 	<script src="<?= base_url('assets/template/js/jquery.magnific-popup.min.js') ?>"></script>
 	<script src="<?= base_url('assets/template/js/magnific-popup-options.js') ?>"></script>
-
 	<script src="<?= base_url('assets/template/js/moment.min.js') ?>"></script>
 	<script src="<?= base_url('assets/template/js/bootstrap-datetimepicker.min.js') ?>"></script>
 	<!-- Main -->
 	<script src="<?= base_url('assets/template/js/main.js') ?>"></script>
 	<!-- Chart Js -->
 	<script src="<?= base_url('assets/chart.js/chart.js/dist/Chart.min.js') ?>"></script>
+	<!-- Chart Js -->
+	<script src="<?= base_url('assets/data-table/datatables.min.js') ?>"></script>
 	<!-- Scripts Quarto Hoteis -->
 	<script src="<?= base_url('assets/js/script.js') ?>"></script>
 	</body>

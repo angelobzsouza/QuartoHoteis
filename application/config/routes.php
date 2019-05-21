@@ -60,6 +60,7 @@ $route['sair'] = "Credenciais/logout";
 // Routes para buscar hoteis
 $route['hotel/(:any)'] = "Hoteis/hotel/$1";
 $route['dashboard/(:any)'] = "Hoteis/dashboard/$1";
+$route['relatorio/(:any)'] = "Hoteis/relatorio/$1";
 
 // Routes de cadastro de hoteis
 $route['cadastrar'] = "Hoteis/createView";

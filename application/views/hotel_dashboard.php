@@ -32,8 +32,11 @@
 					<canvas id="reservas_mes" width="300" height="200"></canvas>
 					<script type="text/javascript">let reservas = <?= json_encode($reservas) ?></script>
 				</div>
-			</div>
+				<div class="col-md-12 text-center">
+					<a href="<?= base_url('relatorio/'.$this->session->hotel_id) ?>" class="btn btn-primary" style="margin-top: 20px">Ver Relatório Completo</a>
+				</div>
 
+			</div>
 		</div>
 	</div>
 
