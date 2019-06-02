@@ -128,7 +128,7 @@
 							<i class="ti-infinite"></i>
 						</span>
 						<h3>Respeito</h3>
-						<p>Respeitar todas as diferenças, fazendo do mundo um lugar muito melhor para se viver e principalmente, para se curtir as férias.</p>
+						<p>Respeitar todas as diferenças, fazendo do mundo um lugar muito melhor para se viver e, principalmente, para se curtir as férias.</p>
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-6">
@@ -173,14 +173,14 @@
 				<div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInUp">
 					<div class="feature-center">
 						<span class="counter js-counter" data-from="0" data-to="<?= $qtde_hoteis ?>" data-speed="5000" data-refresh-interval="50">1</span>
-						<span class="counter-label">Hoteis Cadastradas</span>
+						<span class="counter-label">Hoteis Cadastrados</span>
 
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInUp">
 					<div class="feature-center">
 						<span class="counter js-counter" data-from="0" data-to="<?= $qtde_quartos ?>" data-speed="5000" data-refresh-interval="50">1</span>
-						<span class="counter-label">Quartos Anunciadas</span>
+						<span class="counter-label">Quartos Anunciados</span>
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInUp">

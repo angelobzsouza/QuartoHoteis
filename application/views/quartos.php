@@ -57,14 +57,14 @@
 								</div>
 								<div class="form-group col-md-2">
 										<label for="valor">Valor Mínimo R$</label>
-										<input type="number" step="0.1" name="valor_minimo" id="valor_maximo" class="form-control" value="<?= $filtros['ValorMinimo'] ?>" placeholder="Valor">
+										<input type="number" step="20" name="valor_minimo" id="valor_miximo" class="form-control" value="<?= $filtros['ValorMinimo'] ?>" placeholder="Valor" min="0">
 								</div>
 								<div class="form-group col-md-2">
 										<label for="valor">Valor Máximo R$</label>
-										<input type="number" step="0.1" name="valor_maximo" id="valor_maximo" class="form-control" value="<?= $filtros['ValorMaximo'] ?>" placeholder="Valor">
+										<input type="number" step="20" name="valor_maximo" id="valor_maximo" class="form-control" value="<?= $filtros['ValorMaximo'] ?>" placeholder="Valor" min="0">
 								</div>
 								<div class="col-md-10">
-									<input type="text" name="busca_texto" id="busca_texto" class="form-control" placeholder="Hotel/Quarto" value="<?= $filtros['BuscaTexto'] ?>">
+									<input type="text" name="busca_texto" id="busca_texto" class="form-control" placeholder="Nome do quarto ou do hotel" value="<?= $filtros['BuscaTexto'] ?>">
 								</div>
 								<div class="form-group col-md-2 text-right">
 										<input type="submit" name="submit" id="sumbit" class="btn btn-primary btn-block" value="Buscar">
@@ -74,6 +74,12 @@
 				</div>
 			</div>
 			<div class="row">
+
+				<?php if (count($quartos) == 0) :?>
+					<div class="col-md-12 text-center">
+						<h2 class="text-primary">Nenhum quarto encontrado!</h2>
+					</div>
+				<?php endif;?>
 
 				<?php foreach($quartos as $quarto) : ?>
 					<div class="col-lg-4 col-md-4 col-sm-6">

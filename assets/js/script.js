@@ -329,11 +329,17 @@ function validaCamposReserva () {
   let validou = true;
   let hora = 0;
   let minuto = 0;
+  let data_atual = new Date();
 
-  // ṿalidações
+
   if ($(data_entrada).val() == '') {
     $(data_entrada).addClass('is-invalid');
     $(data_entrada).after(`<span class="text-danger">Este campo é obrigatório</span>`);
+    validou = false;
+  }
+  else if (new Date($(data_entrada).val()).getTime() < data_atual.getTime()) {
+    $(data_entrada).addClass('is-invalid');
+    $(data_entrada).after(`<span class="text-danger">Data inválida</span>`);
     validou = false;
   }
 
@@ -355,6 +361,11 @@ function validaCamposReserva () {
   if ($(data_saida).val() == '') {
     $(data_saida).addClass('is-invalid');
     $(data_saida).after(`<span class="text-danger">Este campo é obrigatório</span>`);
+    validou = false;
+  }
+  else if (new Date($(data_saida).val()).getTime() < data_atual.getTime()) {
+    $(data_saida).addClass('is-invalid');
+    $(data_saida).after(`<span class="text-danger">Data inválida</span>`);
     validou = false;
   }
 
@@ -388,6 +399,11 @@ function validaCamposReserva () {
   if ($(quantidade_pessoas).val() == '') {
     $(quantidade_pessoas).addClass('is-invalid');
     $(quantidade_pessoas).after(`<span class="text-danger">Este campo é obrigatório</span>`);
+    validou = false;
+  }
+  else if ($(quantidade_pessoas).val() < 1) {
+    $(quantidade_pessoas).addClass('is-invalid');
+    $(quantidade_pessoas).after(`<span class="text-danger">Deve haver ao menos uma pessoa na reserva</span>`);
     validou = false;
   }
 

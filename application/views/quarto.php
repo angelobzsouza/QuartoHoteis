@@ -139,7 +139,7 @@
 	        			<input type="text" name="nome_reserva" id="nome_reserva" class="form-control" placeholder="Nome Completo">
 	        		</div>
 	        		<div class="col-md-6">
-	        			<input type="email" name="email_reserva" id="email_reserva" class="form-control" placeholder="Email">
+	        			<input type="email" name="email_reserva" id="email_reserva" class="form-control" placeholder="Email" maxlength="255">
 	        		</div>
 	        	</div>
 	        	<!-- Quantidade de pessoas -->
@@ -150,7 +150,7 @@
 	        	</div>
 	        	<div class="row">
 	        		<div class="col-md-12">
-	        			<input type="number" name="quantidade_pessoas" id="quantidade_pessoas" class="form-control">
+	        			<input type="number" name="quantidade_pessoas" id="quantidade_pessoas" class="form-control" min="0">
 	        		</div>
 	        	</div>
 	        </div>

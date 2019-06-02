@@ -24,7 +24,7 @@
             <div class="input-group-prepend mt-5">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
             </div>
-            <input type="text" name="email" id="email" class="form-control mt-5 font-maior <?= isset($invalid_email) ? 'is-invalid':'' ?>" placeholder="<?= isset($invalid_email) ? 'Email Não Encontrado':'Email' ?>" required maxlength="20">
+            <input type="text" name="email" id="email" class="form-control mt-5 font-maior <?= isset($invalid_email) ? 'is-invalid':'' ?>" placeholder="<?= isset($invalid_email) ? 'Email Não Encontrado':'Email' ?>" required maxlength="255">
           </div>
           <div class="input-group form-group">
             <div class="input-group-prepend">
