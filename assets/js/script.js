@@ -29,7 +29,7 @@ $(document).ready( function () {
 } );
 
 // Definições gerais
-var base_url = "http://localhost/QuartoHoteis/";
+var base_url = "http://192.168.43.47/QuartoHoteis/";
 $('#cep').mask('00000-000');
 $('#telefone').mask('(00) 00000-0000');
 $('#hora_entrada').mask('00:00');

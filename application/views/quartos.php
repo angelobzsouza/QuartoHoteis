@@ -8,7 +8,7 @@
 					<div class="row row-mt-15em">
 						<div class="col-md-12 mt-text animate-box" data-animate-effect="fadeInUp">
 							<span class="intro-text-small">#PARTIU<span class="text-orange">FERIAS</span></span>
-							<h1 class="cursive-font">Veja todos os quartos anuncaidos!</h1>	
+							<h1 class="cursive-font">Veja todos os quartos anunciados!</h1>	
 						</div>
 					</div>
 				</div>
@@ -94,7 +94,7 @@
 							</figure>
 							<div class="fh5co-text">
 								<h2><?= $quarto->TituloQuarto ?></h2>
-								<p><?= substr($quarto->DescricaoQuarto, 0, 70)."..." ?>
+								<p><?= substr($quarto->DescricaoQuarto, 0, 50)."..." ?>
 								</p>
 								<p><span class="price cursive-font">R$<?= number_format($quarto->Preco, 2, ",", ".") ?>/noite</span></p>
 							</div>

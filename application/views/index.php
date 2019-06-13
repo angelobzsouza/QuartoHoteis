@@ -91,7 +91,7 @@
 							</figure>
 							<div class="fh5co-text">
 								<h2><?= $quarto->TituloQuarto ?></h2>
-								<p><?= substr($quarto->DescricaoQuarto, 0, 70)."..." ?>
+								<p><?= substr($quarto->DescricaoQuarto, 0, 50)."..." ?>
 								</p>
 								<p><span class="price cursive-font">R$<?= number_format($quarto->Preco, 2, ",", ".") ?>/noite</span></p>
 							</div>
